@@ -1,12 +1,24 @@
-import { Address, BigInt, Bytes, log, store } from "@graphprotocol/graph-ts";
+import {
+  Address,
+  BigInt,
+  Bytes,
+  log,
+  store,
+  json,
+  dataSource,
+} from "@graphprotocol/graph-ts";
 import {
   ExampleContract,
   ExampleEvent,
 } from "./types/ExampleSubgraph/ExampleContract";
-import { ExampleEntity } from "./types/schema";
+import { CrowdfundingMetadata as CrowdfundingMetadataTemplate } from "../generated/templates";
 import { NewGravatar, UpdatedGravatar } from "../generated/Gravity/Gravity";
-import { Gravatar } from "../generated/schema";
-
+import {
+  Crowdfunding,
+  Gravatar,
+  CrowdfundingMetadata,
+} from "../generated/schema";
+import { CrowdfundingCreated } from "../generated/KBFactory/KBFactory";
 // export function handleExampleEvent(event: ExampleEvent): void {
 //   const entity = new ExampleEntity('example id');
 
@@ -275,6 +287,39 @@ import { Gravatar } from "../generated/schema";
 //   log.error('Hello {}', ['World']);
 //   log.critical('Hello {}', ['World']);
 // }
+
+export function handleCrowdfundingCreated(event: CrowdfundingCreated): void {
+  let crowdfunding = new Crowdfunding(event.params.newCfAddress);
+  crowdfunding.contributions = [];
+  crowdfunding.current = 0;
+  crowdfunding.target = event.params.target;
+  crowdfunding.deadline = event.params.deadline;
+  crowdfunding.ipfsURI = event.params.ipfsHash;
+
+  CrowdfundingMetadataTemplate.create(event.params.ipfsHash);
+  crowdfunding.save();
+}
+
+export function handleMetadata(content: Bytes): void {
+  let crowdfundingMetadata = new CrowdfundingMetadata(dataSource.stringParam());
+  const value = json.fromBytes(content).toObject();
+
+  if (value) {
+    const title = value.get("title");
+    const description = value.get("description");
+    const categories = value.get("categories");
+
+    if (title && description && categories) {
+      crowdfundingMetadata.title = title.toString();
+      crowdfundingMetadata.description = description.toString();
+      crowdfundingMetadata.categories = categories
+        .toArray()
+        .map((c) => c.toString());
+    }
+
+    crowdfundingMetadata.save();
+  }
+}
 
 export function handleNewGravatar(event: NewGravatar): void {
   let gravatar = new Gravatar(event.params.id.toHex());
