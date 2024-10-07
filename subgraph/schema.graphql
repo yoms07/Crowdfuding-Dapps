@@ -15,15 +15,15 @@ type CrowdfundingMetadata @entity {
 type CrowdfundingContribution @entity {
   id: String!
   contributor: ID!
-  Timestamp: Int!
-  Amount: Int!
+  timestamp: Int!
+  amount: Int!
 }
 
 type CrowdfundingBurning @entity {
   id: String!
-  To: ID!
-  Amount: Int!
-  Timestamp: Int!
+  to: ID!
+  amount: Int!
+  timestamp: Int!
 }
 
 type Crowdfunding @entity {
@@ -37,5 +37,5 @@ type Crowdfunding @entity {
 type UserWallet @entity {
   id: Bytes!
   address: Bytes!
-  Balance: Int!
+  balance: Int!
 }
