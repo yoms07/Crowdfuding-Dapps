@@ -29,7 +29,7 @@ type CrowdfundingBurning @entity {
 type Crowdfunding @entity {
   id: Bytes!
   target: Int!
-  Current: Int!
+  current: Int!
   ipfsURI: CrowdfundingMetadata!
   contributions: [CrowdfundingContribution!]!
 }
