@@ -7,6 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 /// @author Jason Stanley Yoman
 /// @notice Used for payment usecase. Only admin can mint the token to user
 contract KBToken is ERC20 {
+    event TopUp(address to, uint256 amount);
     address public admin;
 
     modifier onlyAdmin() {
@@ -43,5 +44,7 @@ contract KBToken is ERC20 {
         require(to != address(0), "KBToken.topUp: invalid address");
         _mint(to, amount);
         success = true;
+
+        emit TopUp(to, amount);
     }
 }

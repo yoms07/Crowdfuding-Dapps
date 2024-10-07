@@ -8,6 +8,13 @@ contract Crowdfunding {
     error SafeTransferFailed();
     error SafeApproveFailed();
 
+    event ContributionAdded(
+        address cfAddress,
+        Contribution contribution,
+        bool isOpen
+    );
+    event Withdraw(Burning burning);
+
     struct Contribution {
         address contributor;
         uint256 amount;
@@ -133,6 +140,8 @@ contract Crowdfunding {
         if (current >= target) {
             isOpen = false;
         }
+
+        emit ContributionAdded(address(this), contribution, isOpen);
     }
 
     function removeContribution(
@@ -150,8 +159,14 @@ contract Crowdfunding {
         );
 
         current -= amount;
+        Burning memory burning;
+        burning.amount = amount;
+        burning.to = to;
+        burning.timestamp = block.timestamp;
 
         _safeTransfer(tokenAddress, to, amount);
+
+        emit Withdraw(burning);
     }
 
     function contributionAllowed(uint256 amount) public view returns (uint256) {

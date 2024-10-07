@@ -10,6 +10,12 @@ import "./Crowdfunding.sol";
 contract KBFactory is Ownable {
     error SafeTransferFailed();
     event ConfigChanged(address);
+    event CrowdfundingCreated(
+        address newCfAddress,
+        string ipfsHash,
+        uint256 target,
+        uint256 deadline
+    );
 
     modifier cfMustExist(address cfAddress) {
         require(cfExist[cfAddress], "KBFactory.cfMustExist");
@@ -79,6 +85,8 @@ contract KBFactory is Ownable {
         cfAddress = address(cf);
         cfList.push(cfAddress);
         cfExist[cfAddress] = true;
+
+        emit CrowdfundingCreated(address(cf), metadataCID, target, deadline);
     }
 
     function isCFExist(address cfAddress) public view returns (bool) {
