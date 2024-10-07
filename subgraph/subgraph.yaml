@@ -35,7 +35,7 @@ dataSources:
     kind: ethereum/events
     apiVersion: 0.0.7
     language: wasm/assemblyscript
-    file: ./src/mapping.ts
+    file: ./src/kbFactoryMapping.ts
     entities:
     - Crowdfunding
     - CrowdfundingMetadata
@@ -47,13 +47,32 @@ dataSources:
     eventHandlers:
     - event: CrowdfundingCreated(address,string,uint256,uint256)
       handler: handleCrowdfundingCreated
+- kind: ethereum/contract
+  name: KBToken
+  network: localhost
+  source:
+    address: '0x5FbDB2315678afecb367f032d93F642f64180aa3'
+    abi: KBToken
+  mapping:
+    kind: ethereum/events
+    apiVersion: 0.0.7
+    language: wasm/assemblyscript
+    file: ./src/kbTokenMapping.ts
+    entities:
+    - KBToken
+    abis:
+    - name: KBToken
+      file: ./abis/KBToken.json
+    eventHandlers:
+    - event: TopUp(address,uint256)
+      handler: handleTopUp
 templates:
 - name: CrowdfundingMetadata
   kind: file/ipfs
   mapping:
     apiVersion: 0.0.7
     language: wasm/assemblyscript
-    file: ./src/mapping.ts
+    file: ./src/crowdfundingMetadataMapping.ts
     handler: handleMetadata
     entities:
     - CrowdfundingMetadata
