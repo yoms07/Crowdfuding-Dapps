@@ -1,0 +1,18 @@
+{
+  "mainnet": {
+    "ExampleSubgraph": {
+      "address": "0x22843e74c59580b3eaf6c233fa67d8b7c561a835"
+    }
+  },
+  "localhost": {
+    "KBFactory": {
+      "address": ""
+    },
+    "KBToken": {
+      "address": ""
+    },
+    "KBConfig": {
+      "address": ""
+    }
+  }
+}

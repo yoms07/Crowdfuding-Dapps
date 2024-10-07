@@ -1,0 +1,39 @@
+{
+  "name": "code",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "graph-codegen": "cd subgraph && graph codegen",
+    "graph-build": "cd subgraph && graph build",
+    "create-local": "graph create --node http://127.0.0.1:8020 crowdfunding",
+    "deploy-local": "cd subgraph && graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 crowdfunding",
+    "graph-test": "graph test",
+    "graph-local": "docker-compose up -d",
+    "graph-local-clean": "docker-compose down -v && docker-compose rm -v && rm -rf data/ipfs data/postgres",
+    "hardhat-local": "hardhat node --hostname 0.0.0.0",
+    "sync-abi-frontend": "./sync.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.11",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@types/uuid": "^10.0.0",
+    "chai": "4",
+    "ethers": "^6.13.2",
+    "hardhat": "^2.22.6"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.2",
+    "@types/node": "^20",
+    "eslint": "^8",
+    "install": "^0.13.0",
+    "kubo-rpc-client": "^5.0.1",
+    "npm": "^10.9.0",
+    "typescript": "^5",
+    "uuid": "^10.0.0"
+  }
+}
