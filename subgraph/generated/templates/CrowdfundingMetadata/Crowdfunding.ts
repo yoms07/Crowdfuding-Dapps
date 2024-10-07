@@ -65,9 +65,13 @@ export class Withdraw__Params {
     this._event = event;
   }
 
+  get cfAddress(): Address {
+    return this._event.parameters[0].value.toAddress();
+  }
+
   get burning(): WithdrawBurningStruct {
     return changetype<WithdrawBurningStruct>(
-      this._event.parameters[0].value.toTuple(),
+      this._event.parameters[1].value.toTuple(),
     );
   }
 }

@@ -60,3 +60,25 @@ templates:
     abis:
     - name: Crowdfunding
       file: ./abis/Crowdfunding.json
+- name: Crowdfunding
+  kind: ethereum/contract
+  network: localhost
+  source:
+    abi: Crowdfunding
+  mapping:
+    kind: ethereum/events
+    apiVersion: 0.0.7
+    language: wasm/assemblyscript
+    file: ./src/crowdfundingMapping.ts
+    entities:
+    - Crowdfunding
+    - CrowdfundingContribution
+    - CrowdfundingBurning
+    abis:
+    - name: Crowdfunding
+      file: ./abis/Crowdfunding.json
+    eventHandlers:
+    - event: ContributionAdded(address,(address,uint256,uint256),bool)
+      handler: handleContributionAdded
+    - event: Withdraw(address,(address,uint256,uint256))
+      handler: handleWithdraw

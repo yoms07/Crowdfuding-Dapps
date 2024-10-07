@@ -86,6 +86,12 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "address",
+        "name": "cfAddress",
+        "type": "address"
+      },
+      {
         "components": [
           {
             "internalType": "address",

@@ -13,7 +13,7 @@ contract Crowdfunding {
         Contribution contribution,
         bool isOpen
     );
-    event Withdraw(Burning burning);
+    event Withdraw(address cfAddress, Burning burning);
 
     struct Contribution {
         address contributor;
@@ -166,7 +166,7 @@ contract Crowdfunding {
 
         _safeTransfer(tokenAddress, to, amount);
 
-        emit Withdraw(burning);
+        emit Withdraw(address(this), burning);
     }
 
     function contributionAllowed(uint256 amount) public view returns (uint256) {
