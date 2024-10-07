@@ -89,3 +89,421 @@ export class Gravatar extends Entity {
     this.set("imageUrl", Value.fromString(value));
   }
 }
+
+export class CrowdfundingMetadata extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save CrowdfundingMetadata entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type CrowdfundingMetadata must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("CrowdfundingMetadata", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static loadInBlock(id: Bytes): CrowdfundingMetadata | null {
+    return changetype<CrowdfundingMetadata | null>(
+      store.get_in_block("CrowdfundingMetadata", id.toHexString()),
+    );
+  }
+
+  static load(id: Bytes): CrowdfundingMetadata | null {
+    return changetype<CrowdfundingMetadata | null>(
+      store.get("CrowdfundingMetadata", id.toHexString()),
+    );
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get title(): string {
+    let value = this.get("title");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set title(value: string) {
+    this.set("title", Value.fromString(value));
+  }
+
+  get description(): string {
+    let value = this.get("description");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set description(value: string) {
+    this.set("description", Value.fromString(value));
+  }
+
+  get categories(): Array<string> {
+    let value = this.get("categories");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set categories(value: Array<string>) {
+    this.set("categories", Value.fromStringArray(value));
+  }
+}
+
+export class CrowdfundingContribution extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(
+      id != null,
+      "Cannot save CrowdfundingContribution entity without an ID",
+    );
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type CrowdfundingContribution must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("CrowdfundingContribution", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): CrowdfundingContribution | null {
+    return changetype<CrowdfundingContribution | null>(
+      store.get_in_block("CrowdfundingContribution", id),
+    );
+  }
+
+  static load(id: string): CrowdfundingContribution | null {
+    return changetype<CrowdfundingContribution | null>(
+      store.get("CrowdfundingContribution", id),
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get contributor(): string {
+    let value = this.get("contributor");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set contributor(value: string) {
+    this.set("contributor", Value.fromString(value));
+  }
+
+  get Timestamp(): i32 {
+    let value = this.get("Timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Timestamp(value: i32) {
+    this.set("Timestamp", Value.fromI32(value));
+  }
+
+  get Amount(): i32 {
+    let value = this.get("Amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Amount(value: i32) {
+    this.set("Amount", Value.fromI32(value));
+  }
+}
+
+export class CrowdfundingBurning extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save CrowdfundingBurning entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.STRING,
+        `Entities of type CrowdfundingBurning must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("CrowdfundingBurning", id.toString(), this);
+    }
+  }
+
+  static loadInBlock(id: string): CrowdfundingBurning | null {
+    return changetype<CrowdfundingBurning | null>(
+      store.get_in_block("CrowdfundingBurning", id),
+    );
+  }
+
+  static load(id: string): CrowdfundingBurning | null {
+    return changetype<CrowdfundingBurning | null>(
+      store.get("CrowdfundingBurning", id),
+    );
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get To(): string {
+    let value = this.get("To");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toString();
+    }
+  }
+
+  set To(value: string) {
+    this.set("To", Value.fromString(value));
+  }
+
+  get Amount(): i32 {
+    let value = this.get("Amount");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Amount(value: i32) {
+    this.set("Amount", Value.fromI32(value));
+  }
+
+  get Timestamp(): i32 {
+    let value = this.get("Timestamp");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Timestamp(value: i32) {
+    this.set("Timestamp", Value.fromI32(value));
+  }
+}
+
+export class Crowdfunding extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save Crowdfunding entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type Crowdfunding must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("Crowdfunding", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static loadInBlock(id: Bytes): Crowdfunding | null {
+    return changetype<Crowdfunding | null>(
+      store.get_in_block("Crowdfunding", id.toHexString()),
+    );
+  }
+
+  static load(id: Bytes): Crowdfunding | null {
+    return changetype<Crowdfunding | null>(
+      store.get("Crowdfunding", id.toHexString()),
+    );
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get target(): i32 {
+    let value = this.get("target");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set target(value: i32) {
+    this.set("target", Value.fromI32(value));
+  }
+
+  get Current(): i32 {
+    let value = this.get("Current");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Current(value: i32) {
+    this.set("Current", Value.fromI32(value));
+  }
+
+  get ipfsURI(): Bytes {
+    let value = this.get("ipfsURI");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set ipfsURI(value: Bytes) {
+    this.set("ipfsURI", Value.fromBytes(value));
+  }
+
+  get contributions(): Array<string> {
+    let value = this.get("contributions");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toStringArray();
+    }
+  }
+
+  set contributions(value: Array<string>) {
+    this.set("contributions", Value.fromStringArray(value));
+  }
+}
+
+export class UserWallet extends Entity {
+  constructor(id: Bytes) {
+    super();
+    this.set("id", Value.fromBytes(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id != null, "Cannot save UserWallet entity without an ID");
+    if (id) {
+      assert(
+        id.kind == ValueKind.BYTES,
+        `Entities of type UserWallet must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+      );
+      store.set("UserWallet", id.toBytes().toHexString(), this);
+    }
+  }
+
+  static loadInBlock(id: Bytes): UserWallet | null {
+    return changetype<UserWallet | null>(
+      store.get_in_block("UserWallet", id.toHexString()),
+    );
+  }
+
+  static load(id: Bytes): UserWallet | null {
+    return changetype<UserWallet | null>(
+      store.get("UserWallet", id.toHexString()),
+    );
+  }
+
+  get id(): Bytes {
+    let value = this.get("id");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set id(value: Bytes) {
+    this.set("id", Value.fromBytes(value));
+  }
+
+  get address(): Bytes {
+    let value = this.get("address");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set address(value: Bytes) {
+    this.set("address", Value.fromBytes(value));
+  }
+
+  get Balance(): i32 {
+    let value = this.get("Balance");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set Balance(value: i32) {
+    this.set("Balance", Value.fromI32(value));
+  }
+}

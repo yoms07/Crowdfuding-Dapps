@@ -9,7 +9,7 @@ type CrowdfundingMetadata @entity {
   id: Bytes!
   title: String!
   description: String!
-  categories: [String]!
+  categories: [String!]!
 }
 
 type CrowdfundingContribution @entity {
@@ -31,10 +31,11 @@ type Crowdfunding @entity {
   target: Int!
   Current: Int!
   ipfsURI: CrowdfundingMetadata!
-  contributions: [CrowdfundingContribution]!
+  contributions: [CrowdfundingContribution!]!
 }
 
 type UserWallet @entity {
-  address: ID!
+  id: Bytes!
+  address: Bytes!
   Balance: Int!
 }
