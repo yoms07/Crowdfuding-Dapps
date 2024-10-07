@@ -47,3 +47,16 @@ dataSources:
     eventHandlers:
     - event: CrowdfundingCreated(address,string,uint256,uint256)
       handler: handleCrowdfundingCreated
+templates:
+- name: CrowdfundingMetadata
+  kind: file/ipfs
+  mapping:
+    apiVersion: 0.0.7
+    language: wasm/assemblyscript
+    file: ./src/mapping.ts
+    handler: handleMetadata
+    entities:
+    - CrowdfundingMetadata
+    abis:
+    - name: Crowdfunding
+      file: ./abis/Crowdfunding.json

@@ -6,7 +6,7 @@ type Gravatar @entity {
 }
 
 type CrowdfundingMetadata @entity {
-  id: Bytes!
+  id: ID!
   title: String!
   description: String!
   categories: [String!]!

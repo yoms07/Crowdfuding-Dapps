@@ -91,9 +91,9 @@ export class Gravatar extends Entity {
 }
 
 export class CrowdfundingMetadata extends Entity {
-  constructor(id: Bytes) {
+  constructor(id: string) {
     super();
-    this.set("id", Value.fromBytes(id));
+    this.set("id", Value.fromString(id));
   }
 
   save(): void {
@@ -101,36 +101,36 @@ export class CrowdfundingMetadata extends Entity {
     assert(id != null, "Cannot save CrowdfundingMetadata entity without an ID");
     if (id) {
       assert(
-        id.kind == ValueKind.BYTES,
-        `Entities of type CrowdfundingMetadata must have an ID of type Bytes but the id '${id.displayData()}' is of type ${id.displayKind()}`,
+        id.kind == ValueKind.STRING,
+        `Entities of type CrowdfundingMetadata must have an ID of type String but the id '${id.displayData()}' is of type ${id.displayKind()}`,
       );
-      store.set("CrowdfundingMetadata", id.toBytes().toHexString(), this);
+      store.set("CrowdfundingMetadata", id.toString(), this);
     }
   }
 
-  static loadInBlock(id: Bytes): CrowdfundingMetadata | null {
+  static loadInBlock(id: string): CrowdfundingMetadata | null {
     return changetype<CrowdfundingMetadata | null>(
-      store.get_in_block("CrowdfundingMetadata", id.toHexString()),
+      store.get_in_block("CrowdfundingMetadata", id),
     );
   }
 
-  static load(id: Bytes): CrowdfundingMetadata | null {
+  static load(id: string): CrowdfundingMetadata | null {
     return changetype<CrowdfundingMetadata | null>(
-      store.get("CrowdfundingMetadata", id.toHexString()),
+      store.get("CrowdfundingMetadata", id),
     );
   }
 
-  get id(): Bytes {
+  get id(): string {
     let value = this.get("id");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set id(value: Bytes) {
-    this.set("id", Value.fromBytes(value));
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
   }
 
   get title(): string {
@@ -424,17 +424,17 @@ export class Crowdfunding extends Entity {
     this.set("deadline", Value.fromI32(value));
   }
 
-  get ipfsURI(): Bytes {
+  get ipfsURI(): string {
     let value = this.get("ipfsURI");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
-      return value.toBytes();
+      return value.toString();
     }
   }
 
-  set ipfsURI(value: Bytes) {
-    this.set("ipfsURI", Value.fromBytes(value));
+  set ipfsURI(value: string) {
+    this.set("ipfsURI", Value.fromString(value));
   }
 
   get contributions(): Array<string> {
