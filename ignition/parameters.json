@@ -1,0 +1,24 @@
+{
+  "BlogPostModule": {
+    "title": "FirstTitle",
+    "contentURI": "ipfs://test-url",
+    "keywords": [
+      "First",
+      "Newbie"
+    ]
+  },
+  "TokenModule": {
+    "name": "JasonToken",
+    "symbol": "JSN",
+    "initialSupply": "1000000000000000000000000n"
+  },
+  "KBFactoryModule": {
+    "title": "FristTitle",
+    "categories": [
+      "Sport",
+      "Technology"
+    ],
+    "target": 100000000,
+    "deadline": 1734627600
+  }
+}
