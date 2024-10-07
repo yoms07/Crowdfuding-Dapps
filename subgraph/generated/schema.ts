@@ -398,8 +398,8 @@ export class Crowdfunding extends Entity {
     this.set("target", Value.fromI32(value));
   }
 
-  get Current(): i32 {
-    let value = this.get("Current");
+  get current(): i32 {
+    let value = this.get("current");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -407,8 +407,8 @@ export class Crowdfunding extends Entity {
     }
   }
 
-  set Current(value: i32) {
-    this.set("Current", Value.fromI32(value));
+  set current(value: i32) {
+    this.set("current", Value.fromI32(value));
   }
 
   get ipfsURI(): Bytes {
