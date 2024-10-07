@@ -232,8 +232,8 @@ export class CrowdfundingContribution extends Entity {
     this.set("contributor", Value.fromString(value));
   }
 
-  get Timestamp(): i32 {
-    let value = this.get("Timestamp");
+  get timestamp(): i32 {
+    let value = this.get("timestamp");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -241,12 +241,12 @@ export class CrowdfundingContribution extends Entity {
     }
   }
 
-  set Timestamp(value: i32) {
-    this.set("Timestamp", Value.fromI32(value));
+  set timestamp(value: i32) {
+    this.set("timestamp", Value.fromI32(value));
   }
 
-  get Amount(): i32 {
-    let value = this.get("Amount");
+  get amount(): i32 {
+    let value = this.get("amount");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -254,8 +254,8 @@ export class CrowdfundingContribution extends Entity {
     }
   }
 
-  set Amount(value: i32) {
-    this.set("Amount", Value.fromI32(value));
+  set amount(value: i32) {
+    this.set("amount", Value.fromI32(value));
   }
 }
 
@@ -302,8 +302,8 @@ export class CrowdfundingBurning extends Entity {
     this.set("id", Value.fromString(value));
   }
 
-  get To(): string {
-    let value = this.get("To");
+  get to(): string {
+    let value = this.get("to");
     if (!value || value.kind == ValueKind.NULL) {
       throw new Error("Cannot return null for a required field.");
     } else {
@@ -311,12 +311,12 @@ export class CrowdfundingBurning extends Entity {
     }
   }
 
-  set To(value: string) {
-    this.set("To", Value.fromString(value));
+  set to(value: string) {
+    this.set("to", Value.fromString(value));
   }
 
-  get Amount(): i32 {
-    let value = this.get("Amount");
+  get amount(): i32 {
+    let value = this.get("amount");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -324,12 +324,12 @@ export class CrowdfundingBurning extends Entity {
     }
   }
 
-  set Amount(value: i32) {
-    this.set("Amount", Value.fromI32(value));
+  set amount(value: i32) {
+    this.set("amount", Value.fromI32(value));
   }
 
-  get Timestamp(): i32 {
-    let value = this.get("Timestamp");
+  get timestamp(): i32 {
+    let value = this.get("timestamp");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -337,8 +337,8 @@ export class CrowdfundingBurning extends Entity {
     }
   }
 
-  set Timestamp(value: i32) {
-    this.set("Timestamp", Value.fromI32(value));
+  set timestamp(value: i32) {
+    this.set("timestamp", Value.fromI32(value));
   }
 }
 
@@ -409,6 +409,19 @@ export class Crowdfunding extends Entity {
 
   set current(value: i32) {
     this.set("current", Value.fromI32(value));
+  }
+
+  get deadline(): i32 {
+    let value = this.get("deadline");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set deadline(value: i32) {
+    this.set("deadline", Value.fromI32(value));
   }
 
   get ipfsURI(): Bytes {
@@ -494,8 +507,8 @@ export class UserWallet extends Entity {
     this.set("address", Value.fromBytes(value));
   }
 
-  get Balance(): i32 {
-    let value = this.get("Balance");
+  get balance(): i32 {
+    let value = this.get("balance");
     if (!value || value.kind == ValueKind.NULL) {
       return 0;
     } else {
@@ -503,7 +516,7 @@ export class UserWallet extends Entity {
     }
   }
 
-  set Balance(value: i32) {
-    this.set("Balance", Value.fromI32(value));
+  set balance(value: i32) {
+    this.set("balance", Value.fromI32(value));
   }
 }
