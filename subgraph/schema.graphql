@@ -4,3 +4,37 @@ type Gravatar @entity {
   displayName: String!
   imageUrl: String!
 }
+
+type CrowdfundingMetadata @entity {
+  id: Bytes!
+  title: String!
+  description: String!
+  categories: [String]!
+}
+
+type CrowdfundingContribution @entity {
+  id: String!
+  contributor: ID!
+  Timestamp: Int!
+  Amount: Int!
+}
+
+type CrowdfundingBurning @entity {
+  id: String!
+  To: ID!
+  Amount: Int!
+  Timestamp: Int!
+}
+
+type Crowdfunding @entity {
+  id: Bytes!
+  target: Int!
+  Current: Int!
+  ipfsURI: CrowdfundingMetadata!
+  contributions: [CrowdfundingContribution]!
+}
+
+type UserWallet @entity {
+  address: ID!
+  Balance: Int!
+}
