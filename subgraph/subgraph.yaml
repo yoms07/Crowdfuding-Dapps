@@ -60,6 +60,7 @@ dataSources:
     file: ./src/kbTokenMapping.ts
     entities:
     - KBToken
+    - UserWallet
     abis:
     - name: KBToken
       file: ./abis/KBToken.json
@@ -93,6 +94,7 @@ templates:
     - Crowdfunding
     - CrowdfundingContribution
     - CrowdfundingBurning
+    - UserWallet
     abis:
     - name: Crowdfunding
       file: ./abis/Crowdfunding.json

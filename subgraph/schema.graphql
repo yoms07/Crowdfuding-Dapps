@@ -35,6 +35,8 @@ type Crowdfunding @entity {
   deadline: Int!
   isOpen: Boolean!
   ipfsURI: CrowdfundingMetadata!
+  contributions: [CrowdfundingContribution!]! @derivedFrom(field: "crowdfunding")
+  burnings: [CrowdfundingBurning]! @derivedFrom(field: "crowdfunding")
 }
 
 type UserWallet @entity {

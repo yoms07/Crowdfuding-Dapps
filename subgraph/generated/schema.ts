@@ -475,6 +475,22 @@ export class Crowdfunding extends Entity {
   set ipfsURI(value: string) {
     this.set("ipfsURI", Value.fromString(value));
   }
+
+  get contributions(): CrowdfundingContributionLoader {
+    return new CrowdfundingContributionLoader(
+      "Crowdfunding",
+      this.get("id")!.toBytes().toHexString(),
+      "contributions",
+    );
+  }
+
+  get burnings(): CrowdfundingBurningLoader {
+    return new CrowdfundingBurningLoader(
+      "Crowdfunding",
+      this.get("id")!.toBytes().toHexString(),
+      "burnings",
+    );
+  }
 }
 
 export class UserWallet extends Entity {
@@ -544,5 +560,41 @@ export class UserWallet extends Entity {
 
   set balance(value: i32) {
     this.set("balance", Value.fromI32(value));
+  }
+}
+
+export class CrowdfundingContributionLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): CrowdfundingContribution[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<CrowdfundingContribution[]>(value);
+  }
+}
+
+export class CrowdfundingBurningLoader extends Entity {
+  _entity: string;
+  _field: string;
+  _id: string;
+
+  constructor(entity: string, id: string, field: string) {
+    super();
+    this._entity = entity;
+    this._id = id;
+    this._field = field;
+  }
+
+  load(): CrowdfundingBurning[] {
+    let value = store.loadRelated(this._entity, this._id, this._field);
+    return changetype<CrowdfundingBurning[]>(value);
   }
 }
