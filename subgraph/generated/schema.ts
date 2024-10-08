@@ -219,6 +219,19 @@ export class CrowdfundingContribution extends Entity {
     this.set("id", Value.fromString(value));
   }
 
+  get crowdfunding(): Bytes {
+    let value = this.get("crowdfunding");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set crowdfunding(value: Bytes) {
+    this.set("crowdfunding", Value.fromBytes(value));
+  }
+
   get contributor(): string {
     let value = this.get("contributor");
     if (!value || value.kind == ValueKind.NULL) {
@@ -300,6 +313,19 @@ export class CrowdfundingBurning extends Entity {
 
   set id(value: string) {
     this.set("id", Value.fromString(value));
+  }
+
+  get crowdfunding(): Bytes {
+    let value = this.get("crowdfunding");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set crowdfunding(value: Bytes) {
+    this.set("crowdfunding", Value.fromBytes(value));
   }
 
   get to(): string {
@@ -424,6 +450,19 @@ export class Crowdfunding extends Entity {
     this.set("deadline", Value.fromI32(value));
   }
 
+  get isOpen(): boolean {
+    let value = this.get("isOpen");
+    if (!value || value.kind == ValueKind.NULL) {
+      return false;
+    } else {
+      return value.toBoolean();
+    }
+  }
+
+  set isOpen(value: boolean) {
+    this.set("isOpen", Value.fromBoolean(value));
+  }
+
   get ipfsURI(): string {
     let value = this.get("ipfsURI");
     if (!value || value.kind == ValueKind.NULL) {
@@ -435,19 +474,6 @@ export class Crowdfunding extends Entity {
 
   set ipfsURI(value: string) {
     this.set("ipfsURI", Value.fromString(value));
-  }
-
-  get contributions(): Array<string> {
-    let value = this.get("contributions");
-    if (!value || value.kind == ValueKind.NULL) {
-      throw new Error("Cannot return null for a required field.");
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set contributions(value: Array<string>) {
-    this.set("contributions", Value.fromStringArray(value));
   }
 }
 

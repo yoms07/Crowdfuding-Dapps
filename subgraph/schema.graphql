@@ -14,6 +14,7 @@ type CrowdfundingMetadata @entity {
 
 type CrowdfundingContribution @entity {
   id: String!
+  crowdfunding: Crowdfunding!
   contributor: ID!
   timestamp: Int!
   amount: Int!
@@ -21,6 +22,7 @@ type CrowdfundingContribution @entity {
 
 type CrowdfundingBurning @entity {
   id: String!
+  crowdfunding: Crowdfunding!
   to: ID!
   amount: Int!
   timestamp: Int!
@@ -31,8 +33,8 @@ type Crowdfunding @entity {
   target: Int!
   current: Int!
   deadline: Int!
+  isOpen: Boolean!
   ipfsURI: CrowdfundingMetadata!
-  contributions: [CrowdfundingContribution!]!
 }
 
 type UserWallet @entity {
