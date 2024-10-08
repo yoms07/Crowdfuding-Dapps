@@ -27,9 +27,11 @@
     "hardhat": "^2.22.6"
   },
   "dependencies": {
+    "@helia/json": "^4.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "@types/node": "^20",
     "eslint": "^8",
+    "helia": "^5.0.0",
     "install": "^0.13.0",
     "kubo-rpc-client": "^5.0.1",
     "npm": "^10.9.0",
