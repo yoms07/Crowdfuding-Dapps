@@ -53,6 +53,9 @@ contract Crowdfunding {
         _;
     }
     string public metadataCID;
+    string public title;
+    string public shortDescription;
+    string[] public categories;
     uint256 public target;
     uint256 public current;
     uint256 public deadline; // in second since unix epoch
@@ -69,6 +72,9 @@ contract Crowdfunding {
 
     constructor(
         address _starter,
+        string memory _title,
+        string memory _shortDescription,
+        string[] memory _categories,
         string memory _metadataCID,
         uint256 _target,
         uint256 _deadline,
@@ -80,7 +86,9 @@ contract Crowdfunding {
         );
 
         starter = _starter;
-
+        title = _title;
+        shortDescription = _shortDescription;
+        categories = _categories;
         factoryAddress = msg.sender;
         metadataCID = _metadataCID;
         target = _target;
@@ -192,6 +200,10 @@ contract Crowdfunding {
 
     function getContributions() external view returns (Contribution[] memory) {
         return contributions;
+    }
+
+    function getCategories() external view returns (string[] memory) {
+        return categories;
     }
 
     function _safeApprove(

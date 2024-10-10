@@ -40,6 +40,9 @@ contract KBFactory is Ownable {
     }
 
     function createCrowdfunding(
+        string memory title,
+        string memory shortDescription,
+        string[] memory categories,
         string memory metadataCID,
         uint256 target,
         uint256 deadline
@@ -76,6 +79,9 @@ contract KBFactory is Ownable {
 
         Crowdfunding cf = new Crowdfunding(
             starter,
+            title,
+            shortDescription,
+            categories,
             metadataCID,
             target,
             deadline,
