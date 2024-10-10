@@ -11,11 +11,7 @@ export function handleMetadata(content: Bytes): void {
     const categories = value.get("categories");
 
     if (title && description && categories) {
-      crowdfundingMetadata.title = title.toString();
       crowdfundingMetadata.description = description.toString();
-      crowdfundingMetadata.categories = categories
-        .toArray()
-        .map<string>((c: JSONValue) => c.toString());
     }
 
     crowdfundingMetadata.save();
