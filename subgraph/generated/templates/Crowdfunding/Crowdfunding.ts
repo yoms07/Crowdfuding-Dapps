@@ -240,6 +240,25 @@ export class Crowdfunding extends ethereum.SmartContract {
     );
   }
 
+  categories(param0: BigInt): string {
+    let result = super.call("categories", "categories(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(param0),
+    ]);
+
+    return result[0].toString();
+  }
+
+  try_categories(param0: BigInt): ethereum.CallResult<string> {
+    let result = super.tryCall("categories", "categories(uint256):(string)", [
+      ethereum.Value.fromUnsignedBigInt(param0),
+    ]);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
   contributionAllowed(amount: BigInt): BigInt {
     let result = super.call(
       "contributionAllowed",
@@ -347,6 +366,25 @@ export class Crowdfunding extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toAddress());
   }
 
+  getCategories(): Array<string> {
+    let result = super.call("getCategories", "getCategories():(string[])", []);
+
+    return result[0].toStringArray();
+  }
+
+  try_getCategories(): ethereum.CallResult<Array<string>> {
+    let result = super.tryCall(
+      "getCategories",
+      "getCategories():(string[])",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toStringArray());
+  }
+
   getContributions(): Array<Crowdfunding__getContributionsResultValue0Struct> {
     let result = super.call(
       "getContributions",
@@ -419,6 +457,29 @@ export class Crowdfunding extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toString());
   }
 
+  shortDescription(): string {
+    let result = super.call(
+      "shortDescription",
+      "shortDescription():(string)",
+      [],
+    );
+
+    return result[0].toString();
+  }
+
+  try_shortDescription(): ethereum.CallResult<string> {
+    let result = super.tryCall(
+      "shortDescription",
+      "shortDescription():(string)",
+      [],
+    );
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
   startAt(): BigInt {
     let result = super.call("startAt", "startAt():(uint256)", []);
 
@@ -464,6 +525,21 @@ export class Crowdfunding extends ethereum.SmartContract {
     return ethereum.CallResult.fromValue(value[0].toBigInt());
   }
 
+  title(): string {
+    let result = super.call("title", "title():(string)", []);
+
+    return result[0].toString();
+  }
+
+  try_title(): ethereum.CallResult<string> {
+    let result = super.tryCall("title", "title():(string)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toString());
+  }
+
   tokenAddress(): Address {
     let result = super.call("tokenAddress", "tokenAddress():(address)", []);
 
@@ -501,20 +577,32 @@ export class ConstructorCall__Inputs {
     return this._call.inputValues[0].value.toAddress();
   }
 
-  get _metadataCID(): string {
+  get _title(): string {
     return this._call.inputValues[1].value.toString();
   }
 
+  get _shortDescription(): string {
+    return this._call.inputValues[2].value.toString();
+  }
+
+  get _categories(): Array<string> {
+    return this._call.inputValues[3].value.toStringArray();
+  }
+
+  get _metadataCID(): string {
+    return this._call.inputValues[4].value.toString();
+  }
+
   get _target(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[5].value.toBigInt();
   }
 
   get _deadline(): BigInt {
-    return this._call.inputValues[3].value.toBigInt();
+    return this._call.inputValues[6].value.toBigInt();
   }
 
   get _tokenAddress(): Address {
-    return this._call.inputValues[4].value.toAddress();
+    return this._call.inputValues[7].value.toAddress();
   }
 }
 

@@ -41,20 +41,32 @@ export class CrowdfundingCreated__Params {
     this._event = event;
   }
 
-  get newCfAddress(): Address {
-    return this._event.parameters[0].value.toAddress();
+  get title(): string {
+    return this._event.parameters[0].value.toString();
   }
 
-  get ipfsHash(): string {
+  get description(): string {
     return this._event.parameters[1].value.toString();
   }
 
+  get categories(): Array<string> {
+    return this._event.parameters[2].value.toStringArray();
+  }
+
+  get newCfAddress(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
+
+  get ipfsHash(): string {
+    return this._event.parameters[4].value.toString();
+  }
+
   get target(): BigInt {
-    return this._event.parameters[2].value.toBigInt();
+    return this._event.parameters[5].value.toBigInt();
   }
 
   get deadline(): BigInt {
-    return this._event.parameters[3].value.toBigInt();
+    return this._event.parameters[6].value.toBigInt();
   }
 }
 
@@ -105,14 +117,20 @@ export class KBFactory extends ethereum.SmartContract {
   }
 
   createCrowdfunding(
+    title: string,
+    shortDescription: string,
+    categories: Array<string>,
     metadataCID: string,
     target: BigInt,
     deadline: BigInt,
   ): Address {
     let result = super.call(
       "createCrowdfunding",
-      "createCrowdfunding(string,uint256,uint256):(address)",
+      "createCrowdfunding(string,string,string[],string,uint256,uint256):(address)",
       [
+        ethereum.Value.fromString(title),
+        ethereum.Value.fromString(shortDescription),
+        ethereum.Value.fromStringArray(categories),
         ethereum.Value.fromString(metadataCID),
         ethereum.Value.fromUnsignedBigInt(target),
         ethereum.Value.fromUnsignedBigInt(deadline),
@@ -123,14 +141,20 @@ export class KBFactory extends ethereum.SmartContract {
   }
 
   try_createCrowdfunding(
+    title: string,
+    shortDescription: string,
+    categories: Array<string>,
     metadataCID: string,
     target: BigInt,
     deadline: BigInt,
   ): ethereum.CallResult<Address> {
     let result = super.tryCall(
       "createCrowdfunding",
-      "createCrowdfunding(string,uint256,uint256):(address)",
+      "createCrowdfunding(string,string,string[],string,uint256,uint256):(address)",
       [
+        ethereum.Value.fromString(title),
+        ethereum.Value.fromString(shortDescription),
+        ethereum.Value.fromStringArray(categories),
         ethereum.Value.fromString(metadataCID),
         ethereum.Value.fromUnsignedBigInt(target),
         ethereum.Value.fromUnsignedBigInt(deadline),
@@ -304,16 +328,28 @@ export class CreateCrowdfundingCall__Inputs {
     this._call = call;
   }
 
-  get metadataCID(): string {
+  get title(): string {
     return this._call.inputValues[0].value.toString();
   }
 
+  get shortDescription(): string {
+    return this._call.inputValues[1].value.toString();
+  }
+
+  get categories(): Array<string> {
+    return this._call.inputValues[2].value.toStringArray();
+  }
+
+  get metadataCID(): string {
+    return this._call.inputValues[3].value.toString();
+  }
+
   get target(): BigInt {
-    return this._call.inputValues[1].value.toBigInt();
+    return this._call.inputValues[4].value.toBigInt();
   }
 
   get deadline(): BigInt {
-    return this._call.inputValues[2].value.toBigInt();
+    return this._call.inputValues[5].value.toBigInt();
   }
 }
 
