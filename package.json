@@ -11,10 +11,11 @@
     "graph-create-local": "graph create --node http://127.0.0.1:8020 crowdfunding",
     "graph-deploy-local": "cd subgraph && graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 crowdfunding",
     "graph-test": "graph test",
+    "graph-sync-abi": "npx hardhat syncGraph",
     "hardhat-local": "hardhat node --hostname 0.0.0.0",
     "deploy-contract": "npx hardhat ignition deploy ./ignition/modules/KBFactory.ts --network localhost --parameters ./ignition/parameters.json --reset && ./sync.sh",
-    "create-cf": "npx hardhat run ./scripts/createCrowdfunding --network localhost",
-    "inspect-cf": "npx hardhat run ./scripts/inspectCrowdfunding --network localhost",
+    "create-cf": "node ./scripts/createCrowdfunding.js",
+    "inspect-cf": "node ./scripts/inspectCrowdfunding.js",
     "list-cf": "npx hardhat cflist --network localhost"
   },
   "keywords": [],

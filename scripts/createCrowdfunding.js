@@ -1,12 +1,5 @@
-import { create } from "kubo-rpc-client";
-import all from "it-all";
-import { fromString as uint8ArrayFromString } from "uint8arrays"
-import { concat as uint8ArrayConcat } from "uint8arrays/concat";
-import { toString as uint8ArrayToString } from "uint8arrays/to-string";
-import { ethers } from "hardhat"
-import { uploadJSONToIPFS, getJSONFromIPFS, getCrowdfundingContract, getFactoryContract } from "./utils"
-
-import { v4 } from "uuid"
+const { uploadJSONToIPFS, getFactoryContract, getProvider } = require("./utils")
+const { v4 } = require("uuid")
 
 function getEightDaysFromNow() {
   const now = new Date();
@@ -17,19 +10,19 @@ function getEightDaysFromNow() {
 async function createCrowdfunding() {
   const title = "title";
   const categories = ["Sport", "Technology"];
-  const description = "Description"
+  const description = "Description";
   const target = 10_000_000;
-  const deadline = getEightDaysFromNow().getTime() / 1000;
+  const deadline = Math.floor(getEightDaysFromNow().getTime() / 1000);
 
-  const signer = await ethers.provider.getSigner(19);
+  const signer = await (await getProvider()).getSigner(19);
   const contract = await getFactoryContract(signer);
 
   const cid = await uploadJSONToIPFS({
-    title,
-    categories,
     description,
-    random: v4()
-  })
+    random: v4(),
+  });
+
+  console.log(cid)
 
   await contract.createCrowdfunding(
     title,
@@ -40,6 +33,5 @@ async function createCrowdfunding() {
     deadline
   );
 }
-
 
 createCrowdfunding().catch(console.error);
