@@ -4,15 +4,18 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "graph-codegen": "cd subgraph && graph codegen",
-    "graph-build": "cd subgraph && graph build",
-    "create-local": "graph create --node http://127.0.0.1:8020 crowdfunding",
-    "deploy-local": "cd subgraph && graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 crowdfunding",
-    "graph-test": "graph test",
     "graph-local": "docker-compose up -d",
+    "graph-codegen": "cd subgraph && graph codegen",
     "graph-local-clean": "docker-compose down -v && docker-compose rm -v && rm -rf data/ipfs data/postgres",
+    "graph-build": "cd subgraph && graph build",
+    "graph-create-local": "graph create --node http://127.0.0.1:8020 crowdfunding",
+    "graph-deploy-local": "cd subgraph && graph deploy --ipfs http://127.0.0.1:5001 --node http://127.0.0.1:8020 crowdfunding",
+    "graph-test": "graph test",
     "hardhat-local": "hardhat node --hostname 0.0.0.0",
-    "sync-abi-frontend": "./sync.sh"
+    "deploy-contract": "npx hardhat ignition deploy ./ignition/modules/KBFactory.ts --network localhost --parameters ./ignition/parameters.json --reset && ./sync.sh",
+    "create-cf": "npx hardhat run ./scripts/createCrowdfunding --network localhost",
+    "inspect-cf": "npx hardhat run ./scripts/inspectCrowdfunding --network localhost",
+    "list-cf": "npx hardhat cflist --network localhost"
   },
   "keywords": [],
   "author": "",
@@ -27,15 +30,18 @@
     "hardhat": "^2.22.6"
   },
   "dependencies": {
+    "@helia/http": "^2.0.0",
     "@helia/json": "^4.0.0",
     "@openzeppelin/contracts": "^5.0.2",
     "@types/node": "^20",
     "eslint": "^8",
     "helia": "^5.0.0",
     "install": "^0.13.0",
+    "it-all": "^3.0.6",
     "kubo-rpc-client": "^5.0.1",
     "npm": "^10.9.0",
     "typescript": "^5",
+    "uint8arrays": "^5.1.0",
     "uuid": "^10.0.0"
   }
 }
