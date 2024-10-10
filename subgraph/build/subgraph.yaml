@@ -5,23 +5,80 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Gravity
+    name: KBFactory
     network: localhost
     source:
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-      abi: Gravity
+      address: "0x8464135c8F25Da09e49BC8782676a84730C318bC"
+      abi: KBFactory
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
-      file: Gravity/Gravity.wasm
+      file: KBFactory/KBFactory.wasm
       entities:
-        - Gravity
+        - Crowdfunding
+        - CrowdfundingMetadata
       abis:
-        - name: Gravity
-          file: Gravity/Gravity.json
+        - name: Crowdfunding
+          file: KBFactory/Crowdfunding.json
+        - name: KBFactory
+          file: KBFactory/KBFactory.json
       eventHandlers:
-        - event: NewGravatar(uint256,address,string,string)
-          handler: handleNewGravatar
-        - event: UpdatedGravatar(uint256,address,string,string)
-          handler: handleUpdateGravatar
+        - event: CrowdfundingCreated(address,string,uint256,uint256)
+          handler: handleCrowdfundingCreated
+  - kind: ethereum/contract
+    name: KBToken
+    network: localhost
+    source:
+      abi: KBToken
+      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: KBToken/KBToken.wasm
+      entities:
+        - KBToken
+        - UserWallet
+      abis:
+        - name: KBToken
+          file: KBToken/KBToken.json
+      eventHandlers:
+        - event: TopUp(address,uint256)
+          handler: handleTopUp
+templates:
+  - name: CrowdfundingMetadata
+    kind: file/ipfs
+    mapping:
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/CrowdfundingMetadata/CrowdfundingMetadata.wasm
+      handler: handleMetadata
+      entities:
+        - CrowdfundingMetadata
+      abis:
+        - name: Crowdfunding
+          file: CrowdfundingMetadata/Crowdfunding.json
+  - name: Crowdfunding
+    kind: ethereum/contract
+    network: localhost
+    source:
+      abi: Crowdfunding
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      file: templates/Crowdfunding/Crowdfunding.wasm
+      entities:
+        - Crowdfunding
+        - CrowdfundingContribution
+        - CrowdfundingBurning
+        - UserWallet
+      abis:
+        - name: Crowdfunding
+          file: Crowdfunding/Crowdfunding.json
+      eventHandlers:
+        - event: ContributionAdded(address,(address,uint256,uint256),bool)
+          handler: handleContributionAdded
+        - event: Withdraw(address,(address,uint256,uint256))
+          handler: handleWithdraw
