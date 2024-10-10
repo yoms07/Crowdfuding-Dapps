@@ -11,6 +11,9 @@ contract KBFactory is Ownable {
     error SafeTransferFailed();
     event ConfigChanged(address);
     event CrowdfundingCreated(
+        string title,
+        string description,
+        string[] categories,
         address newCfAddress,
         string ipfsHash,
         uint256 target,
@@ -92,7 +95,15 @@ contract KBFactory is Ownable {
         cfList.push(cfAddress);
         cfExist[cfAddress] = true;
 
-        emit CrowdfundingCreated(address(cf), metadataCID, target, deadline);
+        emit CrowdfundingCreated(
+            title,
+            shortDescription,
+            categories,
+            address(cf),
+            metadataCID,
+            target,
+            deadline
+        );
     }
 
     function isCFExist(address cfAddress) public view returns (bool) {
