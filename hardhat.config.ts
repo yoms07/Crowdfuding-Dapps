@@ -1,5 +1,5 @@
 import { HardhatUserConfig, task } from "hardhat/config";
-import { v4 } from "uuid";
+import fs from "fs";
 import "@nomicfoundation/hardhat-toolbox";
 
 import DeployedAddress from "./ignition/deployments/chain-31337/deployed_addresses.json";
@@ -75,6 +75,19 @@ task("cflist").setAction(async (taskArgs, hre) => {
   cfList.forEach((cf) => {
     console.log(cf);
   });
+});
+
+const migrateABIToSubgraph = async (contract: string) => {
+  const path = `./artifacts/contracts/${contract}.sol/${contract}.json`;
+  const json = await import(path);
+  fs.writeFileSync(
+    `./subgraph/abis/${contract}.json`,
+    JSON.stringify(json.abi, null, 2)
+  );
+};
+task("syncGraph").setAction(async (taskArgs, hre) => {
+  const abis = ["KBFactory", "Crowdfunding", "KBToken"];
+  await Promise.all(abis.map(migrateABIToSubgraph));
 });
 
 const config: HardhatUserConfig = {
