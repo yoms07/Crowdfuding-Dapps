@@ -1,4 +1,4 @@
-import { Bytes, dataSource, json } from "@graphprotocol/graph-ts";
+import { Bytes, dataSource, json, JSONValue } from "@graphprotocol/graph-ts";
 import { CrowdfundingMetadata } from "../generated/schema";
 
 export function handleMetadata(content: Bytes): void {
@@ -15,7 +15,7 @@ export function handleMetadata(content: Bytes): void {
       crowdfundingMetadata.description = description.toString();
       crowdfundingMetadata.categories = categories
         .toArray()
-        .map((c) => c.toString());
+        .map<string>((c: JSONValue) => c.toString());
     }
 
     crowdfundingMetadata.save();

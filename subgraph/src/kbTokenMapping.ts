@@ -12,7 +12,7 @@ export function handleTopUp(event: TopUp): void {
     userWallet = new UserWallet(event.params.to);
     userWallet.balance = 0;
   }
-
-  userWallet.balance += event.params.amount;
+  userWallet.address = event.params.to;
+  userWallet.balance += event.params.amount.toI32();
   userWallet.save();
 }

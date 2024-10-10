@@ -8,8 +8,8 @@ import { Crowdfunding } from "../generated/schema";
 export function handleCrowdfundingCreated(event: CrowdfundingCreated): void {
   let crowdfunding = new Crowdfunding(event.params.newCfAddress);
   crowdfunding.current = 0;
-  crowdfunding.target = event.params.target;
-  crowdfunding.deadline = event.params.deadline;
+  crowdfunding.target = event.params.target.toI32();
+  crowdfunding.deadline = event.params.deadline.toI32();
   crowdfunding.ipfsURI = event.params.ipfsHash;
 
   CrowdfundingTemplate.create(event.params.newCfAddress);

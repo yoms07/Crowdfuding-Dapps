@@ -1,4 +1,4 @@
-import { v4 } from "uuid";
+import { crypto, ByteArray } from "@graphprotocol/graph-ts";
 import {
   Crowdfunding,
   CrowdfundingContribution,
@@ -18,10 +18,13 @@ export function handleContributionAdded(event: ContributionAdded): void {
   crowdfunding!.current += event.params.contribution.amount.toI32();
   crowdfunding!.isOpen = event.params.isOpen;
 
-  const contribution = new CrowdfundingContribution(v4());
-  contribution.amount = event.params.contribution.amount;
+  const uniqueIdToHash = `${event.block.timestamp.toString()}_${event.params.contribution.contributor.toHex()}_${event.params.cfAddress.toString()}`;
+  const id = crypto.keccak256(ByteArray.fromUTF8(uniqueIdToHash)).toHex();
+  const contribution = new CrowdfundingContribution(id);
+
+  contribution.amount = event.params.contribution.amount.toI32();
   contribution.contributor = event.params.contribution.contributor.toHex();
-  contribution.timestamp = event.params.contribution.timestamp;
+  contribution.timestamp = event.params.contribution.timestamp.toI32();
 
   contribution.save();
   userWallet!.save();
@@ -35,10 +38,13 @@ export function handleWithdraw(event: Withdraw): void {
   userWallet!.balance += event.params.burning.amount.toI32();
   crowdfunding!.current -= event.params.burning.amount.toI32();
 
-  const burning = new CrowdfundingBurning(v4());
-  burning.amount = event.params.burning.amount;
+  const uniqueIdToHash = `${event.block.timestamp.toString()}_${event.params.burning.to.toHex()}_${event.params.cfAddress.toString()}`;
+  const id = crypto.keccak256(ByteArray.fromUTF8(uniqueIdToHash)).toHex();
+
+  const burning = new CrowdfundingBurning(id);
+  burning.amount = event.params.burning.amount.toI32();
   burning.to = event.params.burning.to.toHex();
-  burning.timestamp = event.params.burning.timestamp;
+  burning.timestamp = event.params.burning.timestamp.toI32();
 
   burning.save();
   userWallet!.save();
