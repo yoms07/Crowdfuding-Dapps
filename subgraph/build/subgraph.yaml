@@ -24,7 +24,7 @@ dataSources:
         - name: KBFactory
           file: KBFactory/KBFactory.json
       eventHandlers:
-        - event: CrowdfundingCreated(address,string,uint256,uint256)
+        - event: CrowdfundingCreated(string,string,string[],address,string,uint256,uint256)
           handler: handleCrowdfundingCreated
   - kind: ethereum/contract
     name: KBToken

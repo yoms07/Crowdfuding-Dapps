@@ -7,9 +7,7 @@ type Gravatar @entity {
 
 type CrowdfundingMetadata @entity {
   id: ID!
-  title: String!
   description: String!
-  categories: [String!]!
 }
 
 type CrowdfundingContribution @entity {
@@ -30,12 +28,16 @@ type CrowdfundingBurning @entity {
 
 type Crowdfunding @entity {
   id: Bytes!
+  title: String!
+  categories: [String!]!
+  description: String
   target: Int!
   current: Int!
   deadline: Int!
   isOpen: Boolean!
   ipfsURI: CrowdfundingMetadata!
-  contributions: [CrowdfundingContribution!]! @derivedFrom(field: "crowdfunding")
+  contributions: [CrowdfundingContribution!]!
+    @derivedFrom(field: "crowdfunding")
   burnings: [CrowdfundingBurning]! @derivedFrom(field: "crowdfunding")
 }
 
