@@ -385,6 +385,19 @@ export class Crowdfunding extends Entity {
     this.set("id", Value.fromBytes(value));
   }
 
+  get starter(): Bytes {
+    let value = this.get("starter");
+    if (!value || value.kind == ValueKind.NULL) {
+      throw new Error("Cannot return null for a required field.");
+    } else {
+      return value.toBytes();
+    }
+  }
+
+  set starter(value: Bytes) {
+    this.set("starter", Value.fromBytes(value));
+  }
+
   get title(): string {
     let value = this.get("title");
     if (!value || value.kind == ValueKind.NULL) {
@@ -465,6 +478,32 @@ export class Crowdfunding extends Entity {
 
   set deadline(value: i32) {
     this.set("deadline", Value.fromI32(value));
+  }
+
+  get createdAt(): i32 {
+    let value = this.get("createdAt");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set createdAt(value: i32) {
+    this.set("createdAt", Value.fromI32(value));
+  }
+
+  get totalRaised(): i32 {
+    let value = this.get("totalRaised");
+    if (!value || value.kind == ValueKind.NULL) {
+      return 0;
+    } else {
+      return value.toI32();
+    }
+  }
+
+  set totalRaised(value: i32) {
+    this.set("totalRaised", Value.fromI32(value));
   }
 
   get isOpen(): boolean {

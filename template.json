@@ -1,0 +1,48 @@
+{
+  "name": "pds_wa_pdp_1",
+  "type": "basic",
+  "category": "MARKETING",
+  "language": "id",
+  "components": [
+    {
+      "type": "HEADER",
+      "format": "IMAGE",
+      "example": {
+        "header_handle": [
+          "4::aW1hZ2UvanBlZw==:ARbVckQ47EjxvLCP7uKpqBA_DQR48Mm05KW_YsmcpHMb7qFVYPsqb6ZoG2poHnyFIJcWnAi9o5gYlBXYr4-uup_Tl5BmZcGq_cOv8xU53EyfFg:e:1728974348:368596135424514:100050404425383:ARaE4goM2-I-dOMBBK8"
+        ]
+      }
+    },
+    {
+      "text": "*Yth Nasabah Setia Kartu Kredit BNI*\n\nNikmati seluruh fitur dan layanan menarik dari Kartu Kredit BNI Anda setelah memberikan persetujuan pemrosesan data Pribadi sesuai dengan kebijakan privasi yang tercantum pada media resmi BNI.  \n\nDapatkan bonus BNI Rewards Point :\n* 250 BNI Rewards Point (setara transaksi Rp625 ribu) untuk persetujuan sampai dengan tanggal 15 Oktober 2024.\n* 100 BNI Rewards Point (setara transaksi Rp250 ribu) untuk persetujuan tanggal 16 - 17 Oktober 2024.\n\nInfo lengkap: {{1}}\n \nSilahkan lanjutkan proses dengan klik button di bawah.",
+      "type": "BODY",
+      "example": {
+        "body_text": [
+          [
+            "nama"
+          ]
+        ]
+      }
+    },
+    {
+      "type": "BUTTONS",
+      "buttons": [
+        {
+          "text": "Next",
+          "type": "FLOW",
+          "flow_id": "884137066669969",
+          "flow_action": "navigate",
+          "navigate_screen": "INPUT"
+        }
+      ]
+    }
+  ],
+  "template_id": "NwuWMpX3uiatvxj6WAJwmgjlsXEaod0G",
+  "is_dynamic_url": false,
+  "total_param_body": 1,
+  "total_dynamic_url": 0,
+  "total_param_button": 0,
+  "total_param_header": 1,
+  "is_dynamic_callback": false,
+  "total_button_callback": 0
+}

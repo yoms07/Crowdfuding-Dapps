@@ -1,5 +1,6 @@
 const { abi: CrowdfundingABI } = require("../artifacts/contracts/Crowdfunding.sol/Crowdfunding.json")
 const { abi: FactoryABI } = require("../artifacts/contracts/KBFactory.sol/KBFactory.json")
+const { abi: TokenABI } = require("../artifacts/contracts/KBToken.sol/KBToken.json")
 const DeployedAddress = require("../ignition/deployments/chain-31337/deployed_addresses.json")
 const { ethers } = require("ethers")
 
@@ -34,6 +35,14 @@ exports.getFactoryContract = async function (signer) {
   return new ethers.Contract(
     DeployedAddress["KBFactoryModule#KBFactory"],
     FactoryABI,
+    signer
+  );
+}
+
+exports.getTokenContract = async function (signer) {
+  return new ethers.Contract(
+    DeployedAddress["KBTokenModule#KBToken"],
+    TokenABI,
     signer
   );
 }

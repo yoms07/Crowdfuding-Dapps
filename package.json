@@ -16,7 +16,8 @@
     "deploy-contract": "npx hardhat ignition deploy ./ignition/modules/KBFactory.ts --network localhost --parameters ./ignition/parameters.json --reset && ./sync.sh",
     "create-cf": "node ./scripts/createCrowdfunding.js",
     "inspect-cf": "node ./scripts/inspectCrowdfunding.js",
-    "list-cf": "npx hardhat cflist --network localhost"
+    "list-cf": "npx hardhat cflist --network localhost",
+    "topUp": "npx hardhat topUp --network localhost"
   },
   "keywords": [],
   "author": "",

@@ -3,7 +3,6 @@ import { time, getStorageAt } from "@nomicfoundation/hardhat-network-helpers";
 import KBTokenModule from "../ignition/modules/KBToken";
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox/network-helpers";
 import KBFactoryModule from "../ignition/modules/KBFactory";
-import CrowdfundingModule from "../ignition/modules/Crowdfunding";
 import { expect } from "chai";
 
 describe("Crowdfunding", async function () {

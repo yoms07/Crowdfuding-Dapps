@@ -1,0 +1,34 @@
+{
+  "to": "6281322032424",
+  "type": "template",
+  "template": {
+    "name": "pds_wa_pdp_1",
+    "language": {
+      "code": "id",
+      "policy": "deterministic"
+    },
+    "components": [
+      {
+        "type": "header",
+        "parameters": [
+          {
+            "type": "image",
+            "image": {
+              "id": "857530559471216"
+            }
+          }
+        ]
+      },
+      {
+        "type": "body",
+        "parameters": [
+          {
+            "text": "https://bni.id/Program-PDP",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  },
+  "messaging_product": "whatsapp"
+}

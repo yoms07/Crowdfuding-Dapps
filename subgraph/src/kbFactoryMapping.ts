@@ -20,6 +20,9 @@ export function handleCrowdfundingCreated(event: CrowdfundingCreated): void {
   );
   let crowdfunding = new Crowdfunding(event.params.newCfAddress);
   crowdfunding.current = 0;
+  crowdfunding.starter = event.params.starter;
+  crowdfunding.createdAt = event.block.timestamp.toI32();
+  crowdfunding.totalRaised = 0;
   crowdfunding.target = event.params.target.toI32();
   crowdfunding.deadline = event.params.deadline.toI32();
   crowdfunding.ipfsURI = event.params.ipfsHash;

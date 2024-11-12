@@ -6,11 +6,9 @@ export function handleMetadata(content: Bytes): void {
   const value = json.fromBytes(content).toObject();
 
   if (value) {
-    const title = value.get("title");
     const description = value.get("description");
-    const categories = value.get("categories");
 
-    if (title && description && categories) {
+    if (description) {
       crowdfundingMetadata.description = description.toString();
     }
 

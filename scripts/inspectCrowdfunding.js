@@ -1,7 +1,7 @@
 const { getCrowdfundingContract, getJSONFromIPFS, getProvider } = require("./utils")
 
 async function inspectCrowdfunding() {
-  const cfAddress = "0x8398bCD4f633C72939F9043dB78c574A91C99c0A";
+  const cfAddress = "0x02299a3DcaB0938d0544130D054Bcbfb32B588C3";
 
   const signer = await (await getProvider()).getSigner(0);
   const contract = await getCrowdfundingContract(cfAddress, signer);
@@ -14,9 +14,6 @@ async function inspectCrowdfunding() {
   const deadline = await contract.deadline();
   const isOpen = await contract.isOpen();
   const metadataCID = await contract.metadataCID();
-
-  const metadata = await getJSONFromIPFS(metadataCID);
-
   console.log("Title: ", title);
   console.log("Description: ", description);
   console.log("Categories: ", categories);
@@ -24,6 +21,10 @@ async function inspectCrowdfunding() {
   console.log("Current: ", current);
   console.log("Deadline: ", deadline);
   console.log("IsOpen: ", isOpen);
+
+  const metadata = await getJSONFromIPFS(metadataCID);
+
+
   console.log("Metadata: ", metadata);
 }
 

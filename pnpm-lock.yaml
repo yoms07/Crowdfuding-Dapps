@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@helia/http':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@helia/json':
         specifier: ^4.0.0
         version: 4.0.0
@@ -26,6 +29,9 @@ importers:
       install:
         specifier: ^0.13.0
         version: 0.13.0
+      it-all:
+        specifier: ^3.0.6
+        version: 3.0.6
       kubo-rpc-client:
         specifier: ^5.0.1
         version: 5.0.1(undici@5.28.4)
@@ -35,6 +41,9 @@ importers:
       typescript:
         specifier: ^5
         version: 5.6.2
+      uint8arrays:
+        specifier: ^5.1.0
+        version: 5.1.0
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -913,6 +922,9 @@ packages:
 
   '@helia/delegated-routing-v1-http-api-client@4.0.1':
     resolution: {integrity: sha512-Buj1o0nUny5rX05R/GnE87IxrxlcCtjQKSGthHQ0D5+BGml69CRkWsUHX6Y+DNDJDO+cwCL94rofSlZRr6ZxiA==}
+
+  '@helia/http@2.0.0':
+    resolution: {integrity: sha512-0dEpAdzs3sZhT2hS/R7/E6Aul2E27VJf1qsp3jcwhXIKtJVuB4HDyAinGRhORdIISuRYhksWsmvhUjaR9KrOww==}
 
   '@helia/interface@5.0.0':
     resolution: {integrity: sha512-B95cP8RBl7cqSu1VELeRWPUsTNxu2bJ2Y/ihsdYfUCcxHKUUQdDDLTHQzhZe9iC9TYADkfkjIM7gqgmhqYtY6A==}
@@ -6271,6 +6283,15 @@ snapshots:
       p-defer: 4.0.1
       p-queue: 8.0.1
       uint8arrays: 5.1.0
+
+  '@helia/http@2.0.0':
+    dependencies:
+      '@helia/block-brokers': 4.0.0
+      '@helia/interface': 5.0.0
+      '@helia/routers': 2.0.0
+      '@helia/utils': 1.0.0
+      blockstore-core: 5.0.2
+      datastore-core: 10.0.2
 
   '@helia/interface@5.0.0':
     dependencies:

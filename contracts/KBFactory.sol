@@ -11,6 +11,7 @@ contract KBFactory is Ownable {
     error SafeTransferFailed();
     event ConfigChanged(address);
     event CrowdfundingCreated(
+        address starter,
         string title,
         string description,
         string[] categories,
@@ -96,6 +97,7 @@ contract KBFactory is Ownable {
         cfExist[cfAddress] = true;
 
         emit CrowdfundingCreated(
+            starter,
             title,
             shortDescription,
             categories,
@@ -129,6 +131,7 @@ contract KBFactory is Ownable {
             !cf.isOpen(),
             "KBFactory.withdraw: Crowdfunding is still on sale"
         );
+        require(cf.starter() == msg.sender, "only allowed for starter");
         cf.removeContribution(to, amount);
         return amount;
     }

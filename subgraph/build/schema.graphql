@@ -28,12 +28,15 @@ type CrowdfundingBurning @entity {
 
 type Crowdfunding @entity {
   id: Bytes!
+  starter: Bytes!
   title: String!
   categories: [String!]!
   description: String
   target: Int!
   current: Int!
   deadline: Int!
+  createdAt: Int!
+  totalRaised: Int!
   isOpen: Boolean!
   ipfsURI: CrowdfundingMetadata!
   contributions: [CrowdfundingContribution!]!

@@ -41,32 +41,36 @@ export class CrowdfundingCreated__Params {
     this._event = event;
   }
 
-  get title(): string {
-    return this._event.parameters[0].value.toString();
+  get starter(): Address {
+    return this._event.parameters[0].value.toAddress();
   }
 
-  get description(): string {
+  get title(): string {
     return this._event.parameters[1].value.toString();
   }
 
+  get description(): string {
+    return this._event.parameters[2].value.toString();
+  }
+
   get categories(): Array<string> {
-    return this._event.parameters[2].value.toStringArray();
+    return this._event.parameters[3].value.toStringArray();
   }
 
   get newCfAddress(): Address {
-    return this._event.parameters[3].value.toAddress();
+    return this._event.parameters[4].value.toAddress();
   }
 
   get ipfsHash(): string {
-    return this._event.parameters[4].value.toString();
+    return this._event.parameters[5].value.toString();
   }
 
   get target(): BigInt {
-    return this._event.parameters[5].value.toBigInt();
+    return this._event.parameters[6].value.toBigInt();
   }
 
   get deadline(): BigInt {
-    return this._event.parameters[6].value.toBigInt();
+    return this._event.parameters[7].value.toBigInt();
   }
 }
 

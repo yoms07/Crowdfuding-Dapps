@@ -58,6 +58,7 @@ contract Crowdfunding {
     string[] public categories;
     uint256 public target;
     uint256 public current;
+    uint256 public totalRaised;
     uint256 public deadline; // in second since unix epoch
     uint256 public startAt;
 
@@ -93,6 +94,7 @@ contract Crowdfunding {
         metadataCID = _metadataCID;
         target = _target;
         current = 0;
+        totalRaised = 0;
         deadline = _deadline;
         tokenAddress = _tokenAddress;
         startAt = block.timestamp;
@@ -134,6 +136,7 @@ contract Crowdfunding {
         console.log(contributionAdded);
 
         current += contributionAdded;
+        totalRaised += contributionAdded;
 
         Contribution memory contribution;
         contribution.contributor = by;
@@ -172,6 +175,8 @@ contract Crowdfunding {
         burning.to = to;
         burning.timestamp = block.timestamp;
 
+        burnings.push(burning);
+
         _safeTransfer(tokenAddress, to, amount);
 
         emit Withdraw(address(this), burning);
@@ -202,6 +207,10 @@ contract Crowdfunding {
         return contributions;
     }
 
+    function getBurnings() external view returns (Burning[] memory) {
+        return burnings;
+    }
+
     function getCategories() external view returns (string[] memory) {
         return categories;
     }
@@ -211,11 +220,9 @@ contract Crowdfunding {
         address spender,
         uint256 value
     ) private {
-        console.log("SAMPE SAFEAPPROVE");
         (bool success, bytes memory data) = token.call(
             abi.encodeWithSignature("approve(address,uint256)", spender, value)
         );
-        console.log("SELESAI SAFE APPROVE");
         if (!success || (data.length != 0 && !abi.decode(data, (bool)))) {
             revert SafeApproveFailed();
         }

@@ -6,18 +6,18 @@ import {
   store,
   json,
   dataSource,
+  DataSourceContext,
 } from "@graphprotocol/graph-ts";
 import {
   ExampleContract,
   ExampleEvent,
 } from "./types/ExampleSubgraph/ExampleContract";
-import { CrowdfundingMetadata as CrowdfundingMetadataTemplate } from "../generated/templates";
-import { NewGravatar, UpdatedGravatar } from "../generated/Gravity/Gravity";
 import {
-  Crowdfunding,
-  Gravatar,
-  CrowdfundingMetadata,
-} from "../generated/schema";
+  CrowdfundingMetadata as CrowdfundingMetadataTemplate,
+  Crowdfunding as CrowdfundingTemplate,
+} from "../generated/templates";
+import { NewGravatar, UpdatedGravatar } from "../generated/Gravity/Gravity";
+import { Gravatar, CrowdfundingMetadata } from "../generated/schema";
 import { CrowdfundingCreated } from "../generated/KBFactory/KBFactory";
 // export function handleExampleEvent(event: ExampleEvent): void {
 //   const entity = new ExampleEntity('example id');
@@ -289,54 +289,18 @@ import { CrowdfundingCreated } from "../generated/KBFactory/KBFactory";
 // }
 
 export function handleCrowdfundingCreated(event: CrowdfundingCreated): void {
-  let crowdfunding = new Crowdfunding(event.params.newCfAddress);
-  crowdfunding.contributions = [];
-  crowdfunding.current = 0;
-  crowdfunding.target = event.params.target;
-  crowdfunding.deadline = event.params.deadline;
-  crowdfunding.ipfsURI = event.params.ipfsHash;
+  // let crowdfunding = new Crowdfunding(event.params.newCfAddress);
+  // crowdfunding.contributions = [];
+  // crowdfunding.current = 0;
+  // crowdfunding.target = event.params.target;
+  // crowdfunding.deadline = event.params.deadline;
+  // crowdfunding.ipfsURI = event.params.ipfsHash;
+  let context = new DataSourceContext();
+  context.setBigInt("target", event.params.target);
+  context.setBigInt("deadline", event.params.deadline);
+  context.setString("ipfsHash", event.params.ipfsHash);
 
-  CrowdfundingMetadataTemplate.create(event.params.ipfsHash);
-  crowdfunding.save();
-}
-
-export function handleMetadata(content: Bytes): void {
-  let crowdfundingMetadata = new CrowdfundingMetadata(dataSource.stringParam());
-  const value = json.fromBytes(content).toObject();
-
-  if (value) {
-    const title = value.get("title");
-    const description = value.get("description");
-    const categories = value.get("categories");
-
-    if (title && description && categories) {
-      crowdfundingMetadata.title = title.toString();
-      crowdfundingMetadata.description = description.toString();
-      crowdfundingMetadata.categories = categories
-        .toArray()
-        .map((c) => c.toString());
-    }
-
-    crowdfundingMetadata.save();
-  }
-}
-
-export function handleNewGravatar(event: NewGravatar): void {
-  let gravatar = new Gravatar(event.params.id.toHex());
-  gravatar.owner = event.params.owner;
-  gravatar.displayName = event.params.displayName;
-  gravatar.imageUrl = event.params.imageUrl;
-  gravatar.save();
-}
-
-export function handleUpdateGravatar(event: UpdatedGravatar): void {
-  let id = event.params.id.toHex();
-  let gravatar = Gravatar.load(id);
-  if (gravatar == null) {
-    gravatar = new Gravatar(id);
-  }
-  gravatar.owner = event.params.owner;
-  gravatar.displayName = event.params.displayName;
-  gravatar.imageUrl = event.params.imageUrl;
-  gravatar.save();
+  CrowdfundingTemplate.create(event.params.newCfAddress);
+  // CrowdfundingMetadataTemplate.create(event.params.ipfsHash);
+  // crowdfunding.save();
 }
